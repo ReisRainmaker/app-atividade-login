@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, Alert, Image, TouchableOpacity } from 'react-native';
-
+import { StyleSheet, Text, TextInput, View, Alert, Image, TouchableOpacity } from 'react-native';
+import BotaoVermelho from './botaoVermelho/BotaoVermelho.tsx';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -37,12 +37,7 @@ const Login = () => {
         value={password}
         secureTextEntry={true}
       />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={validacao}
-      >
-        <Text style={styles.buttonText}>Logar</Text>
-      </TouchableOpacity>
+      <BotaoVermelho onPress={validacao} />
     </View>
   );
 };
@@ -75,18 +70,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingLeft: 10,
   },
-  button: {
-    backgroundColor: '#FF0000', // Vermelho
-    borderColor: '#800000', // Vermelho mais escuro
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
+
 });
 
 export default Login;
