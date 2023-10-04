@@ -1,30 +1,22 @@
 import React, { useState } from 'react';
-import Login from './src/componentes/Login'
-import {  StyleSheet, Text, TextInput, View, Button, Alert } from 'react-native';
+import Login from './src/telas/login/Login'
+import Home from './src/telas/Home/Home'
+import { NavigationContainer } from '@react-navigation/native';
+import {createNativeStackNavigator } from '@react-navigation/native-stack'
 
 const App = () => {
+  const Stack = createNativeStackNavigator();
 
   return (
-    <Login />
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name='Login' component={Login} />
+        <Stack.Screen name='Home' component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    width: '80%',
-    height: 40,
-    borderWidth: 1,
-    borderColor: 'gray',
-    marginBottom: 20,
-    paddingLeft: 10,
-  },
-});
 
 export default App;
 

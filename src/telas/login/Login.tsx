@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Alert, Image, TouchableOpacity } from 'react-native';
-import BotaoVermelho from './botaoVermelho/BotaoVermelho.tsx';
-const Login = () => {
+import { StyleSheet, Text, TextInput, View, Alert, Image } from 'react-native';
+import BotaoVermelho from '../../componentes/botaoVermelho/BotaoVermelho.tsx';
+
+
+const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -11,6 +13,7 @@ const Login = () => {
     } else {
       if (username === 'Admin' && password === '1234') {
         Alert.alert('Login bem-sucedido', 'Você está logado como Admin.');
+        navigation.navigate('Home');
       } else {
         Alert.alert('Login falhou', 'Usuário ou senha incorretos.');
       }
@@ -19,10 +22,12 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
+      
       <Image
-        source={require('../imagens/logo_SwordAndShield.png')} 
+        source={require('../../imagens/logo_SwordAndShield.png')} 
         style={styles.logo}
       />
+
       <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
