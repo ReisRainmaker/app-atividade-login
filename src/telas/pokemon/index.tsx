@@ -32,7 +32,7 @@ export default function PokemonScreen({ route }) {
     };
 
     if (!pokemonData) {
-      setTimeout(() => fetchPokemonData(), 2000); 
+      fetchPokemonData(); 
     }
   }, [pokemon, pokemonData]);
 
@@ -51,7 +51,7 @@ export default function PokemonScreen({ route }) {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
+      <View >
         <Text h1>{pokemonData.name}</Text>
         <Text h2>ID: {pokemonData.id}</Text>
 
@@ -65,13 +65,14 @@ export default function PokemonScreen({ route }) {
           <Text key={index}>{type.type.name}</Text>
         ))}
 
+
         <Text h2>Habilidades:</Text>
         {(pokemonData?.abilities || []).map((ability, index) => (
           <Text key={index}>{ability.ability.name}</Text>
         ))}
 
         <Text h2>Estatísticas:</Text>
-        <View style={styles.statsContainer}>
+        <View>
           <BarChart
             style={{ height: 200 }}
             data={statsData}
@@ -94,14 +95,10 @@ export default function PokemonScreen({ route }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
+  
   pokemonImage: {
-    width: 200,
-    height: 200,
+    width: 400,
+    height: 400,
   },
   statsContainer: {
     flexDirection: 'column',
@@ -116,3 +113,13 @@ const styles = StyleSheet.create({
   },
 
 });
+/*
+container: {
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 50,
+},
+style={styles.container}
+
+ style={styles.statsContainer}
+*/
