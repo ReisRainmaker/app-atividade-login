@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Image,   } from "@rneui/themed";
 import { View, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
-import { BarChart, XAxis, Grid } from 'react-native-svg-charts';
 import axiosConfig from '../../config/axios';
 
 function Loading() {
@@ -71,24 +70,9 @@ export default function PokemonScreen({ route }) {
           <Text key={index}>{ability.ability.name}</Text>
         ))}
 
-        <Text h2>Estatísticas:</Text>
-        <View>
-          <BarChart
-            style={{ height: 200 }}
-            data={statsData}
-            svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
-            contentInset={{ top: 30, bottom: 30 }}
-            spacingInner={0.4}
-          >
-            <Grid />
-          </BarChart>
-          <XAxis
-            style={{ marginHorizontal: -10, marginTop: 10 }}
-            data={statsData}
-            xAccessor={({ index }) => index}
-            formatLabel={(_, index) => (pokemonData?.stats || [])[index]?.stat.name.toUpperCase()}
-          />
-        </View>
+        
+          
+        
       </View>
     </ScrollView>
   );

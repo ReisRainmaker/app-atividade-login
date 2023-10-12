@@ -1,24 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TextInput, View, Alert, Image } from 'react-native';
 import BotaoVermelho from '../../componentes/botaoVermelho/BotaoVermelho.tsx';
+import * as SecureStore from 'expo-secure-store'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 const Login = ({navigation}) => {
+  const [resultado, setResultado] = useState('Digite seus dados')
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const validacao = () => {
     if (username == '' && password == '') {
-      Alert.alert('Digite seu usuário e senha.');
+      setResultado('Digite login e senha')
     } else {
       if (username === 'Admin' && password === '1234') {
-        Alert.alert('Login bem-sucedido', 'Você está logado como Admin.');
-        navigation.navigate('Home');
+        SecureStore.setItemAsync('token', '123456')
+        AsyncStorage.setItem('user', 'Administrador')
+
+        setResultado('Login com sucesso')
+        navigation.navigate('Home')
       } else {
-        Alert.alert('Login falhou', 'Usuário ou senha incorretos.');
+          setResultado('Login ou senha inválidos')
       }
     }
   };
+
+  useEffect(() => {
+    SecureStore.getItemAsync('token').then((token) => {
+      if(token != null){
+        navigation.navigate('Home')
+      }
+    })
+  },[])
 
   return (
     <View style={styles.container}>

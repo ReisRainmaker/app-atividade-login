@@ -5,9 +5,12 @@ import axiosConfig from '../../config/axios';
 import { ListItemContent } from "@rneui/base/dist/ListItem/ListItem.Content"
 import { ListItemTitle } from "@rneui/base/dist/ListItem/ListItem.Title"
 import { ListItemSubtitle } from "@rneui/base/dist/ListItem/ListItem.Subtitle"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store'
 
-const Home = ({ navigation }) => {
+export default function Home ({ navigation }) {
   const [pokemons, setPokemons] = useState([])
+  const [nomeUsuario, setNomeUsuario] = useState('')
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -48,13 +51,24 @@ const Home = ({ navigation }) => {
     };
 
     fetchPokemons();
+
+    AsyncStorage.getItem('user').then((user) => {
+      setNomeUsuario(user)
+    })
     
   }, []);
+
+  async function sair() {
+    await SecureStore.deleteItemAsync('token')
+    await AsyncStorage.removeItem('user')
+    navigation.navigate('Login')
+  }
 
   return (
     <>
       <ScrollView>
-        <Text h1>Pokedex</Text>
+        <Text h1>Olá {nomeUsuario}, bem vindo a sua Pokedex!</Text>
+        
         
         <Divider>
           {pokemons.length <= 0 ? <Text>Nenhum pokemon encontrado</Text> : null}
@@ -82,9 +96,8 @@ const Home = ({ navigation }) => {
           ))}
         </Divider>
 
-        <Button title='Sair' onPress={() => navigation.navigate('Login')} />
+        <Button title='Sair' onPress={sair} />
       </ScrollView>
     </>
   );
 };
-export default Home;
